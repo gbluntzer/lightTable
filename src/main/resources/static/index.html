@@ -1,0 +1,28 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/ledtable.js" ></script>
+</head>
+<body>
+HELLO
+<form action="/ledTable" method="post" id="form1" enctype='application/json'>
+    <div>
+        <table>
+            <tr>
+                <td><input type="color" name='TableFrame[0]'></td>
+                <td><input type="color" name='TableFrame[1]'></td>
+                <td><input type="color" name='TableFrame[2]'></td>
+                <td><input type="color" name='TableFrame[3]'></td>
+                <td><input type="color" name='TableFrame[4]'></td>
+                <td><input type="color" name='TableFrame[5]'></td>
+            </tr>
+        </table>
+    </div>
+</form>
+
+<button onClick="sendColor()">Submit</button>
+
+
+</body>
+
+</html>
