@@ -37,15 +37,11 @@ public class HomeController {
     public TableStatus tableStatus(@RequestParam(name="name", required=false, defaultValue="solid") String name) {
         System.out.println("tableStatus Name = " + name);
         if(name == "random"){
+            System.out.println("Running Random");
             try {
                 TableSPI table = new TableSPI();
-                Random random = new Random();
-
                 while (true){
-                    byte r = (byte) getRandomNumberInRange(0,255);
-                    byte g = (byte) getRandomNumberInRange(0,255);
-                    byte b = (byte) getRandomNumberInRange(0,255);
-                    byte bAr[] = table.getSolid(r,g,b);
+                    byte bAr[] = table.getRandom();
                     table.write(bAr);
                 }
             } catch (IOException e) {
@@ -54,6 +50,7 @@ public class HomeController {
 
             }
         }else {
+            System.out.println("Running Solid");
             try {
                 TableSPI table = new TableSPI();
                 byte bAr[] = table.getSolid((byte)255, (byte)0,(byte)0);
@@ -64,16 +61,8 @@ public class HomeController {
 
             }
         }
-        return new TableStatus("SUCCESS");
+        return new TableStatus("Running " + name);
     }
 
-    private static int getRandomNumberInRange(int min, int max) {
 
-        if (min >= max) {
-            throw new IllegalArgumentException("max must be greater than min");
-        }
-
-        Random r = new Random();
-        return r.nextInt((max - min) + 1) + min;
-    }
 }
