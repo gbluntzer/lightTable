@@ -34,7 +34,7 @@ public class HomeController {
 
     @GetMapping("/tableStatus")
     @ResponseBody
-    public TableStatus tableStatus(@RequestParam(name="name", required=false, defaultValue="solid") String name) {
+    public TableStatus tableStatus(@RequestParam(name="name", required=false, defaultValue="black") String name) {
         System.out.println("tableStatus Name = " + name);
 
             try {

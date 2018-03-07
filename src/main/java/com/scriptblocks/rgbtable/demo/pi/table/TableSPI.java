@@ -17,6 +17,8 @@ public class TableSPI extends Table {
     private static TableSPI instance;
     private static String pattern = null;
 
+    private static int changeSpeed = 1000;
+
     private SpiDevice spi = null;
 
     public TableSPI() throws IOException {
@@ -28,8 +30,8 @@ public class TableSPI extends Table {
         LOG.exiting(TableSPI.name, "new");
     }
 
-    public static TableSPI getInstance() throws IOException{
-        if(instance==null){
+    public static TableSPI getInstance() throws IOException {
+        if (instance == null) {
             instance = new TableSPI();
         }
         return instance;
@@ -75,9 +77,41 @@ public class TableSPI extends Table {
         int i = 0;
         while (i < bAr.length) {
 
-            byte r = (byte) getRandomNumberInRange(0,255);
-            byte g = (byte) getRandomNumberInRange(0,255);
-            byte b = (byte) getRandomNumberInRange(0,255);
+            byte r = (byte) getRandomNumberInRange(0, 255);
+            byte g = (byte) getRandomNumberInRange(0, 255);
+            byte b = (byte) getRandomNumberInRange(0, 255);
+            bAr[i++] = r;
+            bAr[i++] = g;
+            bAr[i++] = b;
+        }
+
+
+        LOG.exiting(name, "random");
+        return bAr;
+    }
+
+    public byte[] getRandomRGB() {
+        LOG.entering(name, "random");
+
+        int i = 0;
+        while (i < bAr.length) {
+            byte r = (byte) 0;
+            byte g = (byte) 0;
+            byte b = (byte) 0;
+            switch (getRandomNumberInRange(0, 3)) {
+                case 0: {
+                    r = (byte) 255;
+                    break;
+                }
+                case 1: {
+                    g = (byte) 255;
+                    break;
+                }
+                default: {
+                    b = (byte) 255;
+                    break;
+                }
+            }
             bAr[i++] = r;
             bAr[i++] = g;
             bAr[i++] = b;
@@ -98,25 +132,50 @@ public class TableSPI extends Table {
         return r.nextInt((max - min) + 1) + min;
     }
 
-    public void runPattern(String name){
+    public void runPattern(String name) {
         pattern = name;
-        if (pattern != null && pattern.equals("random")){
+        if (pattern != null && pattern.equals("random")) {
             runRandom();
-        }else {
+        } else if (pattern != null && pattern.equals("rgb")) {
+            runRandomRGB();
+        } else if (pattern != null && pattern.equals("solid")) {
             runSolid();
+        } else {
+            runBlack();
         }
     }
 
-    private void runRandom(){
-        while (pattern.equals("random")){
+    private void runRandom() {
+        while (pattern.equals("random")) {
             byte bAr[] = getRandom();
+            this.write(bAr);
+            sleep();
+        }
+    }
+
+    private void sleep() {
+        try {
+            Thread.sleep(changeSpeed);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void runRandomRGB() {
+        while (pattern.equals("rgb")) {
+            byte bAr[] = getRandomRGB();
             this.write(bAr);
         }
     }
-    private void runSolid(){
-        byte bAr[] = getSolid((byte)255, (byte)0,(byte)0);
+
+    private void runSolid() {
+        byte bAr[] = getSolid((byte) 255, (byte) 0, (byte) 0);
         write(bAr);
     }
 
+    private void runBlack() {
+        byte bAr[] = getSolid((byte) 0, (byte) 0, (byte) 0);
+        write(bAr);
+    }
 
 }
