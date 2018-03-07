@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Scriptblocks on 3/2/2018.
@@ -34,15 +35,33 @@ public class HomeController {
     @GetMapping("/tableStatus")
     @ResponseBody
     public TableStatus tableStatus(@RequestParam(name="name", required=false, defaultValue="solid") String name) {
+        if(name == "random"){
+            try {
+                TableSPI table = new TableSPI();
+                Random random = new Random();
 
-        try {
-            TableSPI table = new TableSPI();
-            byte bAr[] = table.getSolid((byte)255, (byte)0,(byte)0);
-            table.write(bAr);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new TableStatus(e.getLocalizedMessage());
+                while (true){
+                    byte r = (byte) (random.nextInt()*255);
+                    byte g = (byte) (random.nextInt()*255);
+                    byte b = (byte) (random.nextInt()*255);
+                    byte bAr[] = table.getSolid(r,g,b);
+                    table.write(bAr);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new TableStatus(e.getLocalizedMessage());
 
+            }
+        }else {
+            try {
+                TableSPI table = new TableSPI();
+                byte bAr[] = table.getSolid((byte)255, (byte)0,(byte)0);
+                table.write(bAr);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new TableStatus(e.getLocalizedMessage());
+
+            }
         }
         return new TableStatus("SUCCESS");
     }
