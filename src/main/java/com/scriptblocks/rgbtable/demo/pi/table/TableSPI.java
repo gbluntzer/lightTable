@@ -14,6 +14,9 @@ public class TableSPI extends Table {
     private final static String name = "LedTable_SPI";
     private static byte bAr[] = new byte[LedTable_Settings.ledY * LedTable_Settings.ledX * 3];
 
+    private static TableSPI instance;
+    private static String pattern = null;
+
     private SpiDevice spi = null;
 
     public TableSPI() throws IOException {
@@ -23,6 +26,13 @@ public class TableSPI extends Table {
         spi = SpiFactory.getInstance(SpiChannel.CS0, LedTable_Settings.spiSpeed, SpiMode.MODE_0);
 
         LOG.exiting(TableSPI.name, "new");
+    }
+
+    public static TableSPI getInstance() throws IOException{
+        if(instance==null){
+            instance = new TableSPI();
+        }
+        return instance;
     }
 
     public synchronized void write(byte[] bAr) {
@@ -86,6 +96,25 @@ public class TableSPI extends Table {
 
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
+    }
+
+    public void runPattern(String name){
+        if( (pattern.equals("random"))){
+            runRandom();
+        }else {
+            runSolid();
+        }
+    }
+
+    private void runRandom(){
+        while (pattern.equals("random")){
+            byte bAr[] = getRandom();
+            this.write(bAr);
+        }
+    }
+    private void runSolid(){
+        byte bAr[] = getSolid((byte)255, (byte)0,(byte)0);
+        write(bAr);
     }
 
 

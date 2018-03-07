@@ -36,31 +36,17 @@ public class HomeController {
     @ResponseBody
     public TableStatus tableStatus(@RequestParam(name="name", required=false, defaultValue="solid") String name) {
         System.out.println("tableStatus Name = " + name);
-        if(name.equals("random")){
-            System.out.println("Running Random");
+
             try {
-                TableSPI table = new TableSPI();
-                while (true){
-                    byte bAr[] = table.getRandom();
-                    table.write(bAr);
-                }
+                TableSPI table = TableSPI.getInstance();
+                table.runPattern(name);
+
             } catch (IOException e) {
                 e.printStackTrace();
                 return new TableStatus(e.getLocalizedMessage());
 
             }
-        }else {
-            System.out.println("Running Solid");
-            try {
-                TableSPI table = new TableSPI();
-                byte bAr[] = table.getSolid((byte)255, (byte)0,(byte)0);
-                table.write(bAr);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return new TableStatus(e.getLocalizedMessage());
-
-            }
-        }
+        
         return new TableStatus("Running " + name);
     }
 
