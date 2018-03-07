@@ -36,7 +36,7 @@ public class HomeController {
     @ResponseBody
     public TableStatus tableStatus(@RequestParam(name="name", required=false, defaultValue="solid") String name) {
         System.out.println("tableStatus Name = " + name);
-        if(name == "random"){
+        if(name.equals("random")){
             System.out.println("Running Random");
             try {
                 TableSPI table = new TableSPI();
