@@ -46,7 +46,7 @@ public class HomeController {
                 return new TableStatus(e.getLocalizedMessage());
 
             }
-        
+
         return new TableStatus("Running " + name);
     }
 

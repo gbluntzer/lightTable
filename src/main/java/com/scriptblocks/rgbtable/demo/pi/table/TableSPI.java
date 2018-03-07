@@ -99,7 +99,8 @@ public class TableSPI extends Table {
     }
 
     public void runPattern(String name){
-        if( (pattern.equals("random"))){
+        pattern = name;
+        if (pattern != null && pattern.equals("random")){
             runRandom();
         }else {
             runSolid();
