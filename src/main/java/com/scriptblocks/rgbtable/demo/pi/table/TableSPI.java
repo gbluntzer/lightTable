@@ -165,6 +165,7 @@ public class TableSPI extends Table {
         while (pattern.equals("rgb")) {
             byte bAr[] = getRandomRGB();
             this.write(bAr);
+            sleep();
         }
     }
 
