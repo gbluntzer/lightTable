@@ -35,6 +35,7 @@ public class HomeController {
     @GetMapping("/tableStatus")
     @ResponseBody
     public TableStatus tableStatus(@RequestParam(name="name", required=false, defaultValue="solid") String name) {
+        System.out.println("tableStatus Name = " + name);
         if(name == "random"){
             try {
                 TableSPI table = new TableSPI();
