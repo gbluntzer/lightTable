@@ -41,9 +41,9 @@ public class HomeController {
                 Random random = new Random();
 
                 while (true){
-                    byte r = (byte) (random.nextInt()*255);
-                    byte g = (byte) (random.nextInt()*255);
-                    byte b = (byte) (random.nextInt()*255);
+                    byte r = (byte) getRandomNumberInRange(0,255);
+                    byte g = (byte) getRandomNumberInRange(0,255);
+                    byte b = (byte) getRandomNumberInRange(0,255);
                     byte bAr[] = table.getSolid(r,g,b);
                     table.write(bAr);
                 }
@@ -64,5 +64,15 @@ public class HomeController {
             }
         }
         return new TableStatus("SUCCESS");
+    }
+
+    private static int getRandomNumberInRange(int min, int max) {
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
     }
 }
