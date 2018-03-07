@@ -2,13 +2,14 @@ package com.scriptblocks.rgbtable.demo.controller;
 
 import com.scriptblocks.rgbtable.demo.model.TableFrame;
 import com.scriptblocks.rgbtable.demo.model.TablePixel;
+import com.scriptblocks.rgbtable.demo.model.TableStatus;
+import com.scriptblocks.rgbtable.demo.pi.table.Table;
+import com.scriptblocks.rgbtable.demo.pi.table.TableSPI;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -27,5 +28,22 @@ public class HomeController {
 
         // TODO: call persistence layer to update
         return new ResponseEntity<List<TablePixel>>(tablePixels, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/tableStatus")
+    @ResponseBody
+    public TableStatus tableStatus(@RequestParam(name="name", required=false, defaultValue="solid") String name) {
+
+        try {
+            TableSPI table = new TableSPI();
+            byte bAr[] = table.getSolid((byte)255, (byte)0,(byte)0);
+            table.write(bAr);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new TableStatus(e.getLocalizedMessage());
+
+        }
+        return new TableStatus("SUCCESS");
     }
 }

@@ -8,4 +8,7 @@ public class TablePixel {
     Integer red;
     Integer green;
     Integer blue;
+
+    public TablePixel() {
+    }
 }
