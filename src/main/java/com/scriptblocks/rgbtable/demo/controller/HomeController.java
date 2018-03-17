@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
  * Created by Scriptblocks on 3/2/2018.
+ * TODO look at https://stackoverflow.com/questions/29313687/trying-to-use-spring-boot-rest-to-read-json-string-from-post
  */
 
 @RestController
@@ -50,5 +52,31 @@ public class HomeController {
         return new TableStatus("Running " + name);
     }
 
+//    @RequestMapping(
+//            value = "/raw",
+//            method = RequestMethod.POST)
+//    public void raw(@RequestBody Map<String, Object> payload)
+//            throws Exception {
+//
+//        System.out.println(payload);
+//
+//    }
 
+    @RequestMapping(
+            value = "/json",
+            method = RequestMethod.POST)
+    public void json(@RequestBody TableFrame tableFrame)
+            throws Exception {
+
+        System.out.println(tableFrame);
+        System.out.println("json " );
+        try {
+            TableSPI table = TableSPI.getInstance();
+            table.runRaw(tableFrame);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }

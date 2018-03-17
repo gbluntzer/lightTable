@@ -10,6 +10,7 @@ import java.net.URL;
 
 /**
  * Created by Scriptblocks on 3/2/2018.
+ * Try https://stackoverflow.com/questions/21404252/post-request-send-json-data-java-httpurlconnection
  */
 public class RestTest {
     public static void main(String[] args) {
@@ -23,10 +24,11 @@ public class RestTest {
 
 
         //escape the double quotes in json string
-//        String payload = "{\"tablePixelList\":[ {red:1,green:1,blue:1 ]}";
-//        String requestUrl = "http://localhost:8080/ledTable";
-        String payload = "{\"id\":1,\"content\":\"Hello, Stranger!\"}";
-        String requestUrl = "http://localhost:8080/hello-world";
+        String payload = "{\"var1\":\"test\",\"tablePixelList\":[ {\"red\":255,\"green\":0,\"blue\":0 }]}";
+        String requestUrl = "http://localhost:9090/json";
+//        String requestUrl = "http://localhost:9090/raw";
+//        String payload = "{\"id\":1,\"content\":\"Hello, Stranger!\"}";
+//        String requestUrl = "http://localhost:8080/hello-world";
         sendPostRequest(requestUrl, payload);
     }
 

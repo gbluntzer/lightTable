@@ -4,6 +4,8 @@ import com.pi4j.io.spi.SpiChannel;
 import com.pi4j.io.spi.SpiDevice;
 import com.pi4j.io.spi.SpiFactory;
 import com.pi4j.io.spi.SpiMode;
+import com.scriptblocks.rgbtable.demo.model.TableFrame;
+import com.scriptblocks.rgbtable.demo.model.TablePixel;
 
 
 import java.awt.*;
@@ -132,6 +134,7 @@ public class TableSPI extends Table {
         return r.nextInt((max - min) + 1) + min;
     }
 
+
     public void runPattern(String name) {
         pattern = name;
         if (pattern != null && pattern.equals("random")) {
@@ -141,6 +144,16 @@ public class TableSPI extends Table {
         } else if (pattern != null && pattern.equals("solid")) {
             runSolid();
         } else {
+            runBlack();
+        }
+    }
+    public void runRaw(TableFrame tableFrame) {
+        if(tableFrame != null  &&  tableFrame.getTablePixelList() != null && tableFrame.getTablePixelList().size()>0) {
+            TablePixel tablePixel = tableFrame.getTablePixelList().get(0);
+
+            byte bAr[] = getSolid(tablePixel.getRed().byteValue(),tablePixel.getGreen().byteValue(),tablePixel.getBlue().byteValue());
+            this.write(bAr);
+        }else {
             runBlack();
         }
     }
