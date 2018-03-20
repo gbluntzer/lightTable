@@ -4,12 +4,16 @@ import com.pi4j.io.spi.SpiChannel;
 import com.pi4j.io.spi.SpiDevice;
 import com.pi4j.io.spi.SpiFactory;
 import com.pi4j.io.spi.SpiMode;
+import com.scriptblocks.rgbtable.demo.DemoApplication;
 import com.scriptblocks.rgbtable.demo.model.TableFrame;
 import com.scriptblocks.rgbtable.demo.model.TablePixel;
 
 
-import java.awt.*;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public class TableSPI extends Table {
@@ -143,17 +147,20 @@ public class TableSPI extends Table {
             runRandomRGB();
         } else if (pattern != null && pattern.equals("solid")) {
             runSolid();
+        } else if (pattern != null && pattern.equals("image")) {
+            runImage();
         } else {
             runBlack();
         }
     }
+
     public void runRaw(TableFrame tableFrame) {
-        if(tableFrame != null  &&  tableFrame.getTablePixelList() != null && tableFrame.getTablePixelList().size()>0) {
+        if (tableFrame != null && tableFrame.getTablePixelList() != null && tableFrame.getTablePixelList().size() > 0) {
             TablePixel tablePixel = tableFrame.getTablePixelList().get(0);
 
-            byte bAr[] = getSolid(tablePixel.getRed().byteValue(),tablePixel.getGreen().byteValue(),tablePixel.getBlue().byteValue());
+            byte bAr[] = getSolid(tablePixel.getRed().byteValue(), tablePixel.getGreen().byteValue(), tablePixel.getBlue().byteValue());
             this.write(bAr);
-        }else {
+        } else {
             runBlack();
         }
     }
@@ -164,6 +171,11 @@ public class TableSPI extends Table {
             this.write(bAr);
             sleep();
         }
+    }
+
+    private void runImage() {
+        byte bAr[] = getRGBArrayFromImage("10bit.png");
+        this.write(bAr);
     }
 
     private void sleep() {
@@ -190,6 +202,101 @@ public class TableSPI extends Table {
     private void runBlack() {
         byte bAr[] = getSolid((byte) 0, (byte) 0, (byte) 0);
         write(bAr);
+    }
+
+
+    private static List<TablePixel> pixelList = new LinkedList<>();
+
+    public static byte[] getRGBArrayX(int r, int g, int b) {
+        return getRGBArrayX((byte) r, (byte) g, (byte) b);
+    }
+
+    public static TablePixel getPixelARGB(int pixel) {
+        int alpha = (pixel >> 24) & 0xff;
+        int red = (pixel >> 16) & 0xff;
+        int green = (pixel >> 8) & 0xff;
+        int blue = (pixel) & 0xff;
+        TablePixel result = new TablePixel(alpha, red, green, blue);
+        return result;
+    }
+
+
+    public static byte[] getRGBArrayFromImage(String imageName) {
+        int p = 0;
+        pixelList = new LinkedList<>();
+        while (p < bAr.length) {
+            bAr[p++] = (byte) 0;
+            bAr[p++] = (byte) 0;
+            bAr[p++] = (byte) 0;
+        }
+
+
+        try {
+            // get the BufferedImage, using the ImageIO class
+            BufferedImage image =
+                    ImageIO.read(DemoApplication.class.getResource(imageName));
+
+
+            int w = image.getWidth();
+            int h = image.getHeight();
+            // System.out.println("width, height: " + w + ", " + h);
+
+            int z = 0;
+            for (int j = 0; j < w; j++) {
+                for (int i = 0; i < h; i++) {
+
+                    if (z >= bAr.length) {
+                        System.out.println("exceeded maximum");
+                        break;
+                    }
+                    int pixelInt = image.getRGB(j, i);
+                    TablePixel pixel = getPixelARGB(pixelInt);
+                    pixelList.add(pixel);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+
+        snakePixel();
+
+        return bAr;
+    }
+
+
+    /*
+Take the Pixel List and reorder it so that all odd colums are flipped then fill in the bAr array
+ */
+    public static void snakePixel() {
+
+        boolean flip = false;
+        int rowCount = 12;
+        for (int column = 0; column < 8; column++) {
+            if (column % 2 > 0) { //if odd column
+                int columnLeftCounter = 0;
+                int columnRightCounter = 11;
+                for (int h = 0; h < rowCount / 2; h++) { //only need to process half
+                    int offset = column * 12;
+                    int tempOne = offset + columnLeftCounter;
+                    int tempTwo = offset + columnRightCounter;
+                    TablePixel pixelTemp = pixelList.get(tempOne);
+                    pixelList.set(tempOne, pixelList.get(tempTwo));
+                    pixelList.set(tempTwo, pixelTemp);
+                    columnLeftCounter++;
+                    columnRightCounter--;
+                }
+            }
+        }
+        int z = 0;
+        int pixelListCounter = 0;
+        for (TablePixel pixel : pixelList) {
+            bAr[z++] = pixel.getRed().byteValue();
+            bAr[z++] = pixel.getGreen().byteValue();
+            bAr[z++] = pixel.getBlue().byteValue();
+        }
+
+
     }
 
 }
