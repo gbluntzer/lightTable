@@ -77,6 +77,21 @@ public class TableSPI extends Table {
         return bAr;
     }
 
+    public byte[] getTableFrame(TableFrame tableFrame) {
+        LOG.entering(name, "solid");
+        byte bAr[] = getSolid((byte) 0, (byte) 0, (byte) 0);
+        int i = 0;
+        for(TablePixel tablePixel: tableFrame.getTablePixelList()){
+            bAr[i++] = tablePixel.getRed().byteValue();
+            bAr[i++] = tablePixel.getGreen().byteValue();
+            bAr[i++] = tablePixel.getBlue().byteValue();
+        }
+
+
+        LOG.exiting(name, "solid");
+        return bAr;
+    }
+
     public byte[] getRandom() {
         LOG.entering(name, "random");
 
@@ -157,10 +172,11 @@ public class TableSPI extends Table {
     public void runRaw(TableFrame tableFrame) {
         pattern = "runRaw";
         if (tableFrame != null && tableFrame.getTablePixelList() != null && tableFrame.getTablePixelList().size() > 0) {
-            TablePixel tablePixel = tableFrame.getTablePixelList().get(0);
-
-            byte bAr[] = getSolid(tablePixel.getRed().byteValue(), tablePixel.getGreen().byteValue(), tablePixel.getBlue().byteValue());
-            System.out.println("runRaw " + tableFrame );
+            byte bAr[] =  getTableFrame(tableFrame);
+//            TablePixel tablePixel = tableFrame.getTablePixelList().get(0);
+//
+//            byte bAr[] = getSolid(tablePixel.getRed().byteValue(), tablePixel.getGreen().byteValue(), tablePixel.getBlue().byteValue());
+//            System.out.println("runRaw " + tableFrame );
             this.write(bAr);
         } else {
             runBlack();
