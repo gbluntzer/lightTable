@@ -32,7 +32,7 @@ public class TableFrame {
     @Override
     public String toString() {
         return "TableFrame{" +
-                "tablePixelList=" + tablePixelList +
+                "tablePixelList=" + tablePixelList.get(0) +
                 '}';
     }
 }
