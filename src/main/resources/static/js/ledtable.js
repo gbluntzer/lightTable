@@ -19,9 +19,9 @@ function sendColor() {
   payload["tablePixelList"] = tablePixelList;
   payload["var1"] = "test";
 
-  //var jsonData = JSON.parse( JSONObject ); //if we want to convert string
+  var jsonData = JSON.parse( payload ); //if we want to convert string
  // var jsonData = payload;
-  var jsonData = {"var1":"test","tablePixelList":[ {"red":255,"green":0,"blue":0 }]};
+ // var jsonData = {"var1":"test","tablePixelList":[ {"red":255,"green":0,"blue":0 }]};
 
 var request = $.ajax({
   url: requestUrl,
