@@ -25,7 +25,8 @@ public class RestTest {
 
         //escape the double quotes in json string
         String payload = "{\"var1\":\"test\",\"tablePixelList\":[ {\"red\":255,\"green\":0,\"blue\":0 }]}";
-        String requestUrl = "http://localhost:9090/json";
+//        String requestUrl = "http://localhost:9090/json";
+        String requestUrl = "http://192.168.0.55:8080/json";
 //        String requestUrl = "http://localhost:9090/raw";
 //        String payload = "{\"id\":1,\"content\":\"Hello, Stranger!\"}";
 //        String requestUrl = "http://localhost:8080/hello-world";

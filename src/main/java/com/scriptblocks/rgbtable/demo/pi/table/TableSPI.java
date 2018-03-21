@@ -212,11 +212,16 @@ public class TableSPI extends Table {
     }
 
     public static TablePixel getPixelARGB(int pixel) {
+        TablePixel result = new TablePixel();
         Integer alpha = (pixel >> 24) & 0xff;
         Integer red = (pixel >> 16) & 0xff;
         Integer green = (pixel >> 8) & 0xff;
         Integer blue = (pixel) & 0xff;
-        TablePixel result = new TablePixel(alpha, red, green, blue);
+        result.setAlpha(alpha);
+        result.setRed(alpha);
+        result.setGreen(alpha);
+        result.setBlue(alpha);
+
         return result;
     }
 
