@@ -227,6 +227,7 @@ public class TableSPI extends Table {
 
 
     public static byte[] getRGBArrayFromImage(String imageName) {
+        pattern = "getRGBArrayFromImage";
         int p = 0;
         pixelList = new LinkedList<>();
         while (p < bAr.length) {

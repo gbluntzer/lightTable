@@ -6,6 +6,9 @@ function sendColor() {
   //        String requestUrl = "http://localhost:9090/json";
           String requestUrl = "http://192.168.0.25:8080/json";
           */
+         // requestUrl = "/json";
+//          requestUrl = "http://localhost:9090/json";
+         requestUrl = "http://192.168.0.25:8080/json";
   var payload = {};
 
   var tablePixelList = [];
@@ -14,12 +17,14 @@ function sendColor() {
     tablePixelList[x] = hexToRgb(tablePixels);
   }
   payload["tablePixelList"] = tablePixelList;
+  payload["var1"] = "test";
 
   //var jsonData = JSON.parse( JSONObject ); //if we want to convert string
-  var jsonData = payload;
+ // var jsonData = payload;
+  var jsonData = {"var1":"test","tablePixelList":[ {"red":255,"green":0,"blue":0 }]};
 
 var request = $.ajax({
-  url: "/ledTable",
+  url: requestUrl,
   type: "POST",
   data: jsonData,
   contentType: "application/json; charset=utf-8",
@@ -30,9 +35,9 @@ var request = $.ajax({
 function hexToRgb(hex) {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
-        red: parseInt(result[1], 16),
-        green: parseInt(result[2], 16),
-        blue: parseInt(result[3], 16)
+        "red": parseInt(result[1], 16),
+        "green": parseInt(result[2], 16),
+        "blue": parseInt(result[3], 16)
     } : null;
 };
 
