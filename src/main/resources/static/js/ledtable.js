@@ -1,13 +1,22 @@
 function sendColor() {
   var form1 = document.getElementById("form1")
-  var JSONObject = [];
+
+  /**
+          String payload = "{\"var1\":\"test\",\"tablePixelList\":[ {\"red\":255,\"green\":0,\"blue\":0 }]}";
+  //        String requestUrl = "http://localhost:9090/json";
+          String requestUrl = "http://192.168.0.25:8080/json";
+          */
+  var payload = {};
+
+  var tablePixelList = [];
   for(var x = 0; x < form1.elements.length ; x++){
     var tablePixels = form1.elements[x].value;
-    JSONObject[x] = hexToRgb(tablePixels);
+    tablePixelList[x] = hexToRgb(tablePixels);
   }
+  payload["tablePixelList"] = tablePixelList;
 
   //var jsonData = JSON.parse( JSONObject ); //if we want to convert string
-  var jsonData = JSONObject;
+  var jsonData = payload;
 
 var request = $.ajax({
   url: "/ledTable",
