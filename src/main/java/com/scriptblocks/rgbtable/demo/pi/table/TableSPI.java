@@ -212,10 +212,10 @@ public class TableSPI extends Table {
     }
 
     public static TablePixel getPixelARGB(int pixel) {
-        int alpha = (pixel >> 24) & 0xff;
-        int red = (pixel >> 16) & 0xff;
-        int green = (pixel >> 8) & 0xff;
-        int blue = (pixel) & 0xff;
+        Integer alpha = (pixel >> 24) & 0xff;
+        Integer red = (pixel >> 16) & 0xff;
+        Integer green = (pixel >> 8) & 0xff;
+        Integer blue = (pixel) & 0xff;
         TablePixel result = new TablePixel(alpha, red, green, blue);
         return result;
     }
