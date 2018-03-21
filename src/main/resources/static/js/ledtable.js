@@ -8,7 +8,7 @@ function sendColor() {
           */
          // requestUrl = "/json";
 //          requestUrl = "http://localhost:9090/json";
-         requestUrl = "http://192.168.0.25:8080/json";
+ var        requestUrl = "http://192.168.0.25:8080/json";
   var payload = {};
 
   var tablePixelList = [];
