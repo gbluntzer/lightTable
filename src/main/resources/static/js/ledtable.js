@@ -8,9 +8,9 @@ function sendColor() {
   //        String requestUrl = "http://localhost:9090/json";
           String requestUrl = "http://192.168.0.25:8080/json";
           */
-         // requestUrl = "/json";
+  var        requestUrl = "/json";
 //          requestUrl = "http://localhost:9090/json";
- var        requestUrl = "http://192.168.0.25:8080/json";
+// var        requestUrl = "http://192.168.0.25:8080/json";
   var payload = {};
 
   var tablePixelList = [];
@@ -21,7 +21,7 @@ function sendColor() {
   payload["tablePixelList"] = tablePixelList;
   payload["var1"] = "test";
 
-  var jsonData = JSON.parse( payload ); //if we want to convert string
+  var jsonData = JSON.stringify( payload ); //if we want to convert string
  // var jsonData = payload;
  // var jsonData = {"var1":"test","tablePixelList":[ {"red":255,"green":0,"blue":0 }]};
 
