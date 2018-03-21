@@ -155,6 +155,7 @@ public class TableSPI extends Table {
     }
 
     public void runRaw(TableFrame tableFrame) {
+        pattern = "runRaw";
         if (tableFrame != null && tableFrame.getTablePixelList() != null && tableFrame.getTablePixelList().size() > 0) {
             TablePixel tablePixel = tableFrame.getTablePixelList().get(0);
 
