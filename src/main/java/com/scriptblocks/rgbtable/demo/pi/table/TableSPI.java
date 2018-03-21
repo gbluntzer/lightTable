@@ -218,9 +218,9 @@ public class TableSPI extends Table {
         Integer green = (pixel >> 8) & 0xff;
         Integer blue = (pixel) & 0xff;
         result.setAlpha(alpha);
-        result.setRed(alpha);
-        result.setGreen(alpha);
-        result.setBlue(alpha);
+        result.setRed(red);
+        result.setGreen(green);
+        result.setBlue(blue);
 
         return result;
     }
