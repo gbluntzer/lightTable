@@ -5,11 +5,21 @@ package com.scriptblocks.rgbtable.demo.model;
  */
 public class TablePixel {
 
+    Integer alpha;
     Integer red;
     Integer green;
     Integer blue;
 
     public TablePixel() {
+    }
+
+
+    public Integer getAlpha() {
+        return alpha;
+    }
+
+    public void setAlpha(Integer alpha) {
+        this.alpha = alpha;
     }
 
     public Integer getRed() {
