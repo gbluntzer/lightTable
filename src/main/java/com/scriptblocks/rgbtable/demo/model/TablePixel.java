@@ -46,5 +46,13 @@ public class TablePixel {
         this.blue = blue;
     }
 
-
+    @Override
+    public String toString() {
+        return "TablePixel{" +
+                "alpha=" + alpha +
+                ", red=" + red +
+                ", green=" + green +
+                ", blue=" + blue +
+                '}';
+    }
 }
