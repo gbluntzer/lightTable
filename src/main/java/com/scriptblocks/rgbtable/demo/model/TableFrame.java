@@ -28,4 +28,11 @@ public class TableFrame {
     public void setTablePixelList(List<TablePixel> tablePixelList) {
         this.tablePixelList = tablePixelList;
     }
+
+    @Override
+    public String toString() {
+        return "TableFrame{" +
+                "tablePixelList=" + tablePixelList +
+                '}';
+    }
 }

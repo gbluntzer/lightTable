@@ -160,6 +160,7 @@ public class TableSPI extends Table {
             TablePixel tablePixel = tableFrame.getTablePixelList().get(0);
 
             byte bAr[] = getSolid(tablePixel.getRed().byteValue(), tablePixel.getGreen().byteValue(), tablePixel.getBlue().byteValue());
+            System.out.println("runRaw " + tableFrame );
             this.write(bAr);
         } else {
             runBlack();
