@@ -44,3 +44,20 @@ dependencies {
 
 	compile group: 'com.pi4j', name: 'pi4j-core', version: '1.2-SNAPSHOT'
 }
+
+uploadArchives {
+	repositories {
+		flatDir {
+			dirs 'repos'
+		}
+	}
+}
+
+sourceCompatibility = 1.8
+version = '1.0'
+jar {
+	manifest {
+		attributes 'Implementation-Title': 'Gradle Quickstart',
+				'Implementation-Version': version
+	}
+}
