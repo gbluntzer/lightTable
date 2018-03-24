@@ -45,12 +45,16 @@ dependencies {
 	compile group: 'com.pi4j', name: 'pi4j-core', version: '1.2-SNAPSHOT'
 }
 
-uploadArchives {
-	repositories {
-		flatDir {
-			dirs 'repos'
-		}
-	}
+//uploadArchives {
+//	repositories {
+//		flatDir {
+//			dirs '/var/myapp'
+//		}
+//	}
+//}
+
+springBoot {
+	executable = true
 }
 
 sourceCompatibility = 1.8
