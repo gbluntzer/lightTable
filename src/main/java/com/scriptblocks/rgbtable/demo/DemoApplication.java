@@ -1,8 +1,10 @@
 package com.scriptblocks.rgbtable.demo;
 
+import com.scriptblocks.rgbtable.demo.pi.table.TableSPI;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -23,8 +25,12 @@ public class DemoApplication {
 				NetworkInterface ni = networkInterfaces.nextElement();
 				InetAddress inetAddress = ni.getInetAddresses().nextElement();
 				String ipAddress = inetAddress.getHostAddress();
+				TableSPI.getInstance().setIpAddress(ipAddress);
 			}
 		} catch (SocketException e) {
+			e.printStackTrace();
+
+		} catch (IOException e) {
 			e.printStackTrace();
 
 		}

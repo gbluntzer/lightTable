@@ -22,6 +22,7 @@ public class TableSPI extends Table {
 
     private static TableSPI instance;
     private static String pattern = null;
+    private static String ipAddress = null;
 
     private static int changeSpeed = 1000;
 
@@ -323,4 +324,12 @@ Take the Pixel List and reorder it so that all odd colums are flipped then fill 
 
     }
 
+
+    public static String getIpAddress() {
+        return ipAddress;
+    }
+
+    public static void setIpAddress(String ipAddress) {
+        TableSPI.ipAddress = ipAddress;
+    }
 }
