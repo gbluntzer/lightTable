@@ -201,33 +201,28 @@ public class TableSPI extends Table {
 
     private void writeText(String text) {
         TableFrame tableFrame = new TableFrame();
-        TablePixel tablePixel = new TablePixel();
+
 
         List<TablePixel> tablePixelList = new LinkedList<TablePixel>();
 
-        for(int x=0;x<12;x++) {
+        for(int x=0;x<96;x++) {
+            TablePixel tablePixel = new TablePixel();
             tablePixel.setAlpha(0);
+            tablePixel.setRed(0);
+            tablePixel.setGreen(0);
+            tablePixel.setBlue(0);
+            tablePixelList.add(tablePixel);
+        }
+        int[] aArray = {0,12,24,36,48,60,72,85,86,75,63,51,37,38,39,27,15,3};
+        for(int pixelLocation : aArray){
+            TablePixel tablePixel =  tablePixelList.get(pixelLocation);
             tablePixel.setRed(255);
-            tablePixel.setGreen(0);
-            tablePixel.setBlue(0);
-            tablePixelList.add(tablePixel);
-        }
-
-        for(int x=0;x<12;x++) {
-            tablePixel.setAlpha(0);
-            tablePixel.setRed(0);
             tablePixel.setGreen(255);
-            tablePixel.setBlue(0);
-            tablePixelList.add(tablePixel);
+            tablePixel.setBlue(255);
         }
 
-        for(int x=0;x<12;x++) {
-            tablePixel.setAlpha(0);
-            tablePixel.setRed(0);
-            tablePixel.setGreen(0);
-            tablePixel.setBlue(255);
-            tablePixelList.add(tablePixel);
-        }
+
+
 
         tableFrame.setTablePixelList(tablePixelList);
 
