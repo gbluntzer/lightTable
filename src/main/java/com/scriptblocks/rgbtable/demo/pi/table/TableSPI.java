@@ -155,7 +155,7 @@ public class TableSPI extends Table {
     }
 
 
-    public void runPattern(String name) {
+    public void runPattern(String name, String text) {
         pattern = name;
         if (pattern != null && pattern.equals("random")) {
             runRandom();
@@ -165,6 +165,8 @@ public class TableSPI extends Table {
             runSolid();
         } else if (pattern != null && pattern.equals("image")) {
             runImage();
+        } else if (pattern != null && pattern.equals("writeText")) {
+            writeText(text);
         } else {
             runBlack();
         }
@@ -194,6 +196,25 @@ public class TableSPI extends Table {
 
     private void runImage() {
         byte bAr[] = getRGBArrayFromImage("10bit.png");
+        this.write(bAr);
+    }
+
+    private void writeText(String text) {
+        TableFrame tableFrame = new TableFrame();
+        TablePixel tablePixel = new TablePixel();
+
+        List<TablePixel> tablePixelList = new LinkedList<TablePixel>();
+
+
+        tablePixel.setAlpha(0);
+        tablePixel.setRed(255);
+        tablePixel.setGreen(0);
+        tablePixel.setBlue(0);
+        tablePixelList.add(tablePixel);
+
+        tableFrame.setTablePixelList(tablePixelList);
+
+        byte bAr[] =  getTableFrame(tableFrame);
         this.write(bAr);
     }
 
