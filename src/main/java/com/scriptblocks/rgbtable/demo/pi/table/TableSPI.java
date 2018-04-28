@@ -227,6 +227,7 @@ public class TableSPI extends Table {
         tableFrame.setTablePixelList(tablePixelList);
 
         byte bAr[] =  getTableFrame(tableFrame);
+        snakePixel();
         this.write(bAr);
     }
 
