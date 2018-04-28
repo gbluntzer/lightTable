@@ -24,7 +24,7 @@ public class DemoApplication {
 			while(networkInterfaces.hasMoreElements()){
 				NetworkInterface ni = networkInterfaces.nextElement();
 				InetAddress inetAddress = ni.getInetAddresses().nextElement();
-				String ipAddress = inetAddress.getHostAddress();
+				String ipAddress = inetAddress.getLocalHost().getHostAddress();
 				TableSPI.getInstance().setIpAddress(ipAddress);
                 System.out.println("-------------------IP ADDRESS------------------- : " + ipAddress);
 			}

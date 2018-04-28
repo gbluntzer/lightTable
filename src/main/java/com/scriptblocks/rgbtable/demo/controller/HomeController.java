@@ -36,12 +36,12 @@ public class HomeController {
 
     @GetMapping("/tableStatus")
     @ResponseBody
-    public TableStatus tableStatus(@RequestParam(name="name", required=false, defaultValue="black") String name) {
+    public TableStatus tableStatus(@RequestParam(name="name", required=false, defaultValue="black") String name, @RequestParam(name="text", required=false, defaultValue="") String text) {
         System.out.println("tableStatus Name = " + name);
 
             try {
                 TableSPI table = TableSPI.getInstance();
-                table.runPattern(name);
+                table.runPattern (name,text);
 
             } catch (IOException e) {
                 e.printStackTrace();
