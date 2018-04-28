@@ -26,6 +26,7 @@ public class DemoApplication {
 				InetAddress inetAddress = ni.getInetAddresses().nextElement();
 				String ipAddress = inetAddress.getHostAddress();
 				TableSPI.getInstance().setIpAddress(ipAddress);
+                System.out.println("-------------------IP ADDRESS------------------- : " + ipAddress);
 			}
 		} catch (SocketException e) {
 			e.printStackTrace();
