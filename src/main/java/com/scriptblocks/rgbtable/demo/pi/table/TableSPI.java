@@ -203,7 +203,7 @@ public class TableSPI extends Table {
         TableFrame tableFrame = new TableFrame();
 
 
-        List<TablePixel> tablePixelList = new LinkedList<TablePixel>();
+        pixelList = new LinkedList<TablePixel>();
 
         for(int x=0;x<96;x++) {
             TablePixel tablePixel = new TablePixel();
@@ -211,11 +211,11 @@ public class TableSPI extends Table {
             tablePixel.setRed(0);
             tablePixel.setGreen(0);
             tablePixel.setBlue(0);
-            tablePixelList.add(tablePixel);
+            pixelList.add(tablePixel);
         }
         int[] aArray = {0,12,24,36,48,60,72,85,86,75,63,51,37,38,39,27,15,3};
         for(int pixelLocation : aArray){
-            TablePixel tablePixel =  tablePixelList.get(pixelLocation);
+            TablePixel tablePixel =  pixelList.get(pixelLocation);
             tablePixel.setRed(255);
             tablePixel.setGreen(255);
             tablePixel.setBlue(255);
@@ -224,7 +224,7 @@ public class TableSPI extends Table {
 
 
 
-        tableFrame.setTablePixelList(tablePixelList);
+        tableFrame.setTablePixelList(pixelList);
 
         byte bAr[] =  getTableFrame(tableFrame);
         snakePixel();
