@@ -205,12 +205,29 @@ public class TableSPI extends Table {
 
         List<TablePixel> tablePixelList = new LinkedList<TablePixel>();
 
+        for(int x=0;x<12;x++) {
+            tablePixel.setAlpha(0);
+            tablePixel.setRed(255);
+            tablePixel.setGreen(0);
+            tablePixel.setBlue(0);
+            tablePixelList.add(tablePixel);
+        }
 
-        tablePixel.setAlpha(0);
-        tablePixel.setRed(255);
-        tablePixel.setGreen(0);
-        tablePixel.setBlue(0);
-        tablePixelList.add(tablePixel);
+        for(int x=0;x<12;x++) {
+            tablePixel.setAlpha(0);
+            tablePixel.setRed(0);
+            tablePixel.setGreen(255);
+            tablePixel.setBlue(0);
+            tablePixelList.add(tablePixel);
+        }
+
+        for(int x=0;x<12;x++) {
+            tablePixel.setAlpha(0);
+            tablePixel.setRed(0);
+            tablePixel.setGreen(0);
+            tablePixel.setBlue(255);
+            tablePixelList.add(tablePixel);
+        }
 
         tableFrame.setTablePixelList(tablePixelList);
 
