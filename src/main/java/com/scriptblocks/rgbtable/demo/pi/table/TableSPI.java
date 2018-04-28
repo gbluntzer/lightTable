@@ -237,7 +237,7 @@ public class TableSPI extends Table {
         if(text.equals("8")){ textArray = eightArray; }
         if(text.equals("9")){ textArray = nineArray; }
 
-        for(int pixelLocation : aArray){
+        for(int pixelLocation : textArray){
             TablePixel tablePixel =  pixelList.get(pixelLocation);
             tablePixel.setRed(255);
             tablePixel.setGreen(255);
