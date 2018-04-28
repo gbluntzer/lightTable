@@ -38,6 +38,7 @@ public class HomeController {
     @ResponseBody
     public TableStatus tableStatus(@RequestParam(name="name", required=false, defaultValue="black") String name, @RequestParam(name="text", required=false, defaultValue="") String text) {
         System.out.println("tableStatus Name = " + name);
+        System.out.println("tableStatus text = " + text);
 
             try {
                 TableSPI table = TableSPI.getInstance();
