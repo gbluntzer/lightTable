@@ -213,7 +213,30 @@ public class TableSPI extends Table {
             tablePixel.setBlue(0);
             pixelList.add(tablePixel);
         }
+        int[] textArray = {};
         int[] aArray = {0,12,24,36,48,60,72,85,86,75,63,51,37,38,39,27,15,3};
+        int[] oneArray = {0,12,24,36,48,60,72,84};
+        int[] twoArray = {0,1,2,3,12,24,36,37,38,39,51,63,75,84,85,86,87};
+        int[] threeArray = {0,1,2,3,36,37,38,39,51,63,75,84,85,86,87,27,15};
+        int[] fourArray = {84,72,60,48,49,50,87,75,63,51,39,27,15,3};
+        int[] fiveArray = {84,85,86,87,72,60,48,49,50,51,39,27,15,0,1,2,3};
+        int[] sixArray = {84,85,86,87,72,60,48,49,50,51,24,12,39,27,15,0,1,2,3};
+        int[] sevenArray = {84,85,86,87,75,63,51,39,27,15,3};
+        int[] eightArray = {84,85,86,87,72,60,48,49,50,51,24,12,39,27,15,0,1,2,3,75,63};
+        int[] nineArray = {84,85,86,87,72,60,48,49,50,51,39,27,15,3,75,63};
+        int[] zeroArray = {84,85,86,87,72,60,48,51,24,12,39,27,15,0,1,2,3,75,63};
+
+        if(text.equals("0")){ textArray = zeroArray; }
+        if(text.equals("1")){ textArray = oneArray; }
+        if(text.equals("2")){ textArray = twoArray; }
+        if(text.equals("3")){ textArray = threeArray; }
+        if(text.equals("4")){ textArray = fourArray; }
+        if(text.equals("5")){ textArray = fiveArray; }
+        if(text.equals("6")){ textArray = sixArray; }
+        if(text.equals("7")){ textArray = sevenArray; }
+        if(text.equals("8")){ textArray = eightArray; }
+        if(text.equals("9")){ textArray = nineArray; }
+
         for(int pixelLocation : aArray){
             TablePixel tablePixel =  pixelList.get(pixelLocation);
             tablePixel.setRed(255);
